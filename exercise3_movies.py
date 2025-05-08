@@ -38,10 +38,30 @@ if add_choice == 'y':
 
     movies.append(new_movie)
 
-    # Save updated list
     with open(MOVIES_FILE, 'w') as f:
         json.dump(movies, f, indent=2)
 
     print(f"✅ '{title}' added to the movie list.")
 else:
     print("ℹ️ No movie added.")
+
+# === Ask if user wants to update a movie rating ===
+update_choice = input("\nWould you like to update a movie rating? (y/n): ").strip().lower()
+
+if update_choice == 'y':
+    update_title = input("Enter the title of the movie to update: ").strip().lower()
+    for movie in movies:
+        if update_title == movie["title"].lower():
+            try:
+                new_rating = float(input(f"Enter new rating for '{movie['title']}': "))
+                movie["rating"] = new_rating
+                with open(MOVIES_FILE, 'w') as f:
+                    json.dump(movies, f, indent=2)
+                print(f"✅ Updated rating for '{movie['title']}' to {new_rating}")
+            except ValueError:
+                print("⚠️ Invalid rating. Must be a number.")
+            break
+    else:
+        print("❌ Movie not found.")
+else:
+    print("ℹ️ No rating updated.")
