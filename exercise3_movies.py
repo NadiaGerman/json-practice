@@ -65,3 +65,13 @@ if update_choice == 'y':
         print("❌ Movie not found.")
 else:
     print("ℹ️ No rating updated.")
+# === Ask if user wants to see top-rated movies ===
+report_choice = input("\n📊 Would you like to see the top 3 rated movies? (y/n): ").strip().lower()
+
+if report_choice == 'y':
+    print("\n🏆 Top 3 Movies:")
+    sorted_movies = sorted(movies, key=lambda m: m['rating'], reverse=True)
+    for movie in sorted_movies[:3]:
+        print(f"- {movie['title']} ({movie['year']}): ⭐ {movie['rating']}")
+else:
+    print("ℹ️ Report skipped.")
