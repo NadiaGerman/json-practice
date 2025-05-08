@@ -11,22 +11,27 @@ print("📚 Book List:")
 for book in books:
     print(f"- {book['title']} by {book['author']} ({book['year']})")
 
-# === Add a new book ===
-print("\n➕ Add a New Book:")
-title = input("Title: ")
-author = input("Author: ")
-year = int(input("Year: "))
+# === Ask user if they want to add a book ===
+choice = input("\nWould you like to add a new book? (y/n): ").strip().lower()
 
-new_book = {
-    "title": title,
-    "author": author,
-    "year": year
-}
+if choice == 'y':
+    print("\n➕ Add a New Book:")
+    title = input("Title: ")
+    author = input("Author: ")
+    year = int(input("Year: "))
 
-books.append(new_book)
+    new_book = {
+        "title": title,
+        "author": author,
+        "year": year
+    }
 
-# === Save updated list ===
-with open(BOOKS_FILE, 'w') as f:
-    json.dump(books, f, indent=2)
+    books.append(new_book)
 
-print(f"\n✅ Book '{title}' added and saved.")
+    # === Save updated list ===
+    with open(BOOKS_FILE, 'w') as f:
+        json.dump(books, f, indent=2)
+
+    print(f"\n✅ Book '{title}' added and saved.")
+else:
+    print("\nℹ️ No book added. Goodbye!")
